@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ah.Model", "Ah.Model\Ah.Model.csproj", "{05E4B837-3974-4001-8E14-1DF50B45B226}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A-CommonTypesLayer", "CommonTypesLayer\A-CommonTypesLayer.csproj", "{FDED44B5-152E-4AE3-B1FF-D4FB75867A5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonTypesLayer", "CommonTypesLayer\CommonTypesLayer.csproj", "{FDED44B5-152E-4AE3-B1FF-D4FB75867A5C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ah.Business", "Ah.Business\Ah.Business.csproj", "{6002B229-8257-42C5-9E4A-25F3EE0D6303}"
 EndProject
