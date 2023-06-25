@@ -1,5 +1,6 @@
-﻿using Ah.Model;
+﻿
 using CommonTypesLayer.DataAccess.Interfaces;
+using CommonTypesLayer.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace CommonTypesLayer.DataAccess.Implementaitons.EF

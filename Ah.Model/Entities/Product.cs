@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommonTypesLayer.Model;
 
 namespace Ah.Model.Entities
 {
@@ -22,5 +17,9 @@ namespace Ah.Model.Entities
         public int? CategoryID { get; set; }
         //Navigation Property
         public Category? Category { get; set; }
+
+        Category cat = new Category();
+        Category cat1 = new Category();
+        Category cat2 = new Category();
     }
 }

@@ -1,4 +1,4 @@
-﻿using Ah.Model;
+﻿using CommonTypesLayer.Model;
 
 namespace CommonTypesLayer.DataAccess.Interfaces
 {
