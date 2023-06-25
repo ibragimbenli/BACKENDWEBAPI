@@ -1,6 +1,5 @@
 ﻿using Ah.Business.Interface;
 using Ah.Model.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ah.WebbApi.Controllers

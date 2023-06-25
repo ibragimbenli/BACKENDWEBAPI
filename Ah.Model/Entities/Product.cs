@@ -9,7 +9,7 @@ namespace Ah.Model.Entities
 {
     // new Product().ProductName.(StingMetodlar)
     // new Product().Category.CategoryName
-    public class Product:IEntitiy
+    public class Product:IEntity
     {
         //Veri Tabanındaki Tablonun Satırlarını burda modelliyorum. Tablo ismi aynı olmalı. eğer tablo ismini farklı yapacaksak bazı işlemler yapmamız gerekir. Tabloda bulunann Kolon isimleri de aynı olmalı. Eğer onlarıda farklı kullanacaksak bazı işlemler yapmalıyız...
         //Veri Tabanındaki tablo kolonlarının hepsini almak zorunda değiliz. İşimize yarayanları alsak yeter. Dikkat etmemiz gereken bir diğer COLON ise Tablolar arası ilişki kurulan Kolonları da mutlaka almalıyız...

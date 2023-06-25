@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ah.Model.Entities
 {
-    public class Category:IEntitiy
+    public class Category:IEntity
     {
         public int CategoryID { get; set; }
         public string? CategoryName { get; set; }

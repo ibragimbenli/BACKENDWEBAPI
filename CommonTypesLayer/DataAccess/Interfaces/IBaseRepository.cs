@@ -3,7 +3,7 @@
 namespace CommonTypesLayer.DataAccess.Interfaces
 {
     public interface IBaseRepository<TEntity> 
-        where TEntity :class, IEntitiy
+        where TEntity :class, IEntity
     {
         //CRUD işelemlerini gerçekleştirmek için oluşuturulan Interface...
         List<TEntity> GetAll();

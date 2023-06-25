@@ -1,12 +1,11 @@
-﻿
-using Ah.Model;
+﻿using Ah.Model;
 using CommonTypesLayer.DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CommonTypesLayer.DataAccess.Implementaitons.EF
 {
     public abstract class BaseRepository<TEntity, TContext> : IBaseRepository<TEntity>
-        where TEntity : class,IEntitiy
+        where TEntity : class, IEntity
         where TContext : DbContext, new()
     {
         //CRUD işlemlerinin nasıl gerçekleşeceğini yazdığım sınıf
@@ -24,7 +23,7 @@ namespace CommonTypesLayer.DataAccess.Implementaitons.EF
 
         public List<TEntity> GetAll()
         {
-           using var ctx = new TContext();
+            using var ctx = new TContext();
 
             return ctx.Set<TEntity>().ToList();
         }

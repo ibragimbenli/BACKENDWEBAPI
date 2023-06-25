@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ah.Model
 {
-    public interface IEntitiy
+    public interface IEntity
     {
     }
 }
