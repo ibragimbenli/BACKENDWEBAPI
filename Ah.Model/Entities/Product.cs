@@ -22,9 +22,5 @@ namespace Ah.Model.Entities
         public int? CategoryID { get; set; }
         //Navigation Property
         public Category? Category { get; set; }
-
-        Category cat = new Category();
-        Category cat1 = new Category();
-        Category cat2 = new Category();
     }
 }
