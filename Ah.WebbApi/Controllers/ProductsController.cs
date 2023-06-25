@@ -14,7 +14,7 @@ namespace Ah.WebbApi.Controllers
         {
             _productBs = productBs;
         }
-        List<Product> GetProducts()
+        public List<Product> GetProducts()
         {
             return _productBs.GetProducts();
         }

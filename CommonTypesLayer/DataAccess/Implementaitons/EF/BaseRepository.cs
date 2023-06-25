@@ -23,9 +23,10 @@ namespace CommonTypesLayer.DataAccess.Implementaitons.EF
 
         public List<TEntity> GetAll()
         {
-            using var ctx = new TContext();
-
-            return ctx.Set<TEntity>().ToList();
+            using (var ctx = new TContext())
+            {
+                return ctx.Set<TEntity>().ToList();
+            }
         }
 
         public void Insert(TEntity entitiy)
