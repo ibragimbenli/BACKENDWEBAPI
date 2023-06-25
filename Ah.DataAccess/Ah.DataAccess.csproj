@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ah.Model\Ah.Model.csproj" />
-    <ProjectReference Include="..\CommonTypesLayer\CommonTypesLayer.csproj" />
   </ItemGroup>
 
 </Project>
