@@ -15,7 +15,6 @@ namespace CommonTypesLayer.DataAccess.Implementaitons.EF
             using var ctx = new TContext();
             ctx.Set<TEntity>().Remove(entitiy);
             ctx.SaveChanges();
-
         }
 
         public TEntity Get()
