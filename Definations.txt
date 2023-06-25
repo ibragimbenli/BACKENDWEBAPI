@@ -1,0 +1,65 @@
+Katmanlý Mimari (N-Tier Architecture)
+Repository--
+	GenericRepository...
+DLL - Dynamic Link Library - Dinamik link kütüphanesi...
+
+Referasn gösterilen proje karþýlýklý olarak referans gösterilmez. Yani bir proje diðer bir projeye referans olmuþsa
+o proje referans olan projede ona referans olamaz.
+
+Referasn type - Value Type
+
+Swagger - WebApi için EndPointleri dökümante dip kullanýcýlara swagger aracýlýðýyla gösterilen bir uygulama.
+1- Ah.DataAcess - Class Library Standart Proje oluþtur
+2- Ah.Model - Class Library Standart Proje oluþtur
+3- Ah.Busþisness - Class Library Standart Proje oluþtur
+4- CommonTypesLayer - Class Library Standart Proje oluþtur
+5- Ah.WebApi C# Proje oluþtur 
+
+
+WebApi projeleri Referans edilemez...
+********************
+GitHub - Fork...
+********************
+
+DTO - Data Transfer Object - Farklý Tablolar Kullanarak ayrý bir tablo oluþturursak bu DTO tablosu olur.
+Entities - Varlýklar - Veri Tabaný Tablolarýnýn Modelleri (Gölgeleri)
+
+Internal Sadece bulunduðu katmanda kullanýlan 
+Protected - Kalýtým alýnan katmanlarda kullanlýr
+public - her yerden eriþelebilen Eriþim Belirteci
+Not: Classlar private olarak iþaretlenemez...
+
+Interface
+	Bir projedeki Müdür gibidir. Ýþ yapmazlar, yaptýrtýrlar. burada bilmemiz gereken Interfaceler class deðildir. yapýlmasý gerekenleri
+	belirleyen ve uygulanmasý zorunlu yapýlardýr. Interfaceler KALITIM vermezler... Interfaceler sadece implement edilirler. Yani
+	classlara uygulanýrlar...
+Abstract
+	Sadece kalýtým vermek amacayýla kullanýlan sýnýflardýr. Eðer içerisindeki yapýlarda gövde var ise bu gövde kullanýlýr veya
+	override edilerek sýnýflarda kullanýlýr. Abstractlarda implement (uygulandýðý) edildigi sýnýflarda ezilerek kullanýlýr.
+
+	Not: Bir Class sadece 1 classtan kalýtým alabilir fakat bir class birden çok interface'i implement edebilir. 
+	Not: Class içerisinde ortak bulunan yapýlar var ise ve bu yapýlarý tekrar etmek istemiyorsak kalýtým vererek bu sorunu
+	çözebiliriz. Sadece iþaretlemek ve o classa bazý durumlarý zorunlu kýlmak istiyorsak Interface kullanmalýyýz...
+
+	Repository - Metod deposu... Generic Repository -  Dýþarýdan aldýðý Entityleri kendi içinde deðerlendiren ve 
+	koda uyarlayan yapýrlardýr.
+	
+	SOLID - Dependency Injection 
+
+	CRUD - Create(Insert) - Read - Update - Delete
+
+	SQL - Bir Wimdows Servise programýdýr. Biz bilgisayarýmýza SQL kurdupumuzda aslýnda bunu instance ederiz. new SQL();
+	T-SQL - Transcat SQL
+
+	. veya bilgisayarAdi veya localhost ile baðlantý local baðlantýdýr. Windowsa giriþ yetkisi olan herkes baðlanabilir.
+	connectþonstrting .\SQLEXPRESS; \n-alt satýra geç; \r enter... .\\ veya @ iþareti koyarsak \ durumunu kontrol ederiz. 
+	stream dosya iþlemleri...
+	using... Garbage Collector...
+
+	Dependency Injection...Baðýmlýlýk Dýþarýdan enjekte edilmesi...
+	Sýký baðýmlýk(tigthly) - her teelfon için o telefona ait bir þarj aleti kullansaydýk sýký baðýmlýlýk olurdu
+	gevþek (loosley)- telefon için kullanýlan universal þarj aleti örneði ise gevþek baðýmlýlýktýr.
+	DI genel olarak 3 yolla uygulanýr.
+	1 - Constroctor yoluyla
+	2 - property ile
+	3- method...
