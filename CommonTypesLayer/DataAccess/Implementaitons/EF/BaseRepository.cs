@@ -1,4 +1,3 @@
-﻿
 using CommonTypesLayer.DataAccess.Interfaces;
 using CommonTypesLayer.Model;
 using Microsoft.EntityFrameworkCore;
