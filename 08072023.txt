@@ -1,0 +1,9 @@
+
+Context - Veritabanýn Modeli
+Entity - Veritabanýndaki Tablolarda yer alan kayýtlarý nesneleþtirmek(Obje) için kullanýdðýmýz tanýmdýr.
+DTO - Data Transfer Object - Bunun modellediði data, bizzat veri kaynaðýnda bir tabloda bulunan data deðildir. Bir tablodaki datanýn bir kýsmý veya bir çok tablodaki datanýn bir araya gelerek yeni bir sonuç tablosu oluþturduðu durumlara DTO deriz.
+
+Mapping - Entitiy Framework fluent api
+https://www.entityframeworktutorial.net/efcore/configure-one-to-one-relationship-using-fluent-api-in-ef-core.aspx
+
+
