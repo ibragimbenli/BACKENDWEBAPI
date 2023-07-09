@@ -7,3 +7,15 @@ Mapping - Entitiy Framework fluent api
 https://www.entityframeworktutorial.net/efcore/configure-one-to-one-relationship-using-fluent-api-in-ef-core.aspx
 
 
+//Linq Extentions Method
+
+//IEnumarable => Datalar execute edilmiþ yani RAM'a çýkarýlmýþ demektir.
+//IQuarable	  => Datalar hala veri kaynaðýnda bulunuyor.
+
+delagate
+func
+act
+predicate
+
+=> Lambda
+

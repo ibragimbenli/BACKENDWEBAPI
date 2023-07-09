@@ -26,12 +26,11 @@ namespace Ah.Business.Implementation
             //Authenticaiton
 
             //VeriTabanından getAll ile ürünleri getirecek....
-            
+            return _repo.GetAll();
+
             //Loglama
             //Validation
             //Authenticaiton
-
-            return _repo.GetAll();
         }
     }
 }
