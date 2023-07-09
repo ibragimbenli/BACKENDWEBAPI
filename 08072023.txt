@@ -7,8 +7,10 @@ Mapping - Entitiy Framework fluent api
 https://www.entityframeworktutorial.net/efcore/configure-one-to-one-relationship-using-fluent-api-in-ef-core.aspx
 
 
-//Linq Extentions Method
+//Linq Extentions Method - Bir sýnýfa sonradan eklenen metodlardýr. Yeni sýnýf kullanmadan yeni metodlar eklenerek kulanýmý geliþtirilen metodlardýr.
 
+ //var dolar = StringExtensions.ToDollar("1000",24.25M);
+            //Console.WriteLine(dolar);
 //IEnumarable => Datalar execute edilmiþ yani RAM'a çýkarýlmýþ demektir.
 //IQuarable	  => Datalar hala veri kaynaðýnda bulunuyor.
 
@@ -19,3 +21,20 @@ predicate
 
 => Lambda
 
+ERP - Kaynak Yönetimi yazýlýmlarý
+CRM - Müþteri Ýliþkileri Yöentimi
+
+using Garbage Collectoru beklemeden yapacaðý iþi yapar ve iþi bittiðinde RAM'i temizler ve çýkar. IDisposable sýnýfýndan implemente edilen compnenteler kullanabilir.
+
+Servislerde, gelen isteklerin (requestin) amacýnýn ne olduðunu servisin anlamasýný saðlayan bir takým verbs(fiiller) vardýr. Bunlara da HTTP verbs yani HTTP fiileri denir.
+GET      --> Kaynak(Resoruce) elde etmek için kullanýlýr. swagger - browser yapabiliyoruz...
+POST     --> Yeni bir kaynak oluþturmak için kullanýlýr- 
+PUT      --> Kaynak Güncelleme yapmak için 
+Delete   --> Kaynak silmek için kullanýlýr
+Patch    --> Kýsmen Güncelleme yapmak için
+Options  --> 
+Not : Eðer HTTP Attribute belirtilmezse Controller varsayýlan olarak GET ile çalýþýr.
+
+POST iþlemi için
+POSTMAN servis
+https://www.restapitutorial.com/lessons/httpmethods.html

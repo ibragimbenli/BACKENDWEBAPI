@@ -2,6 +2,7 @@
 using Ah.DataAccess.Interfaces;
 using Ah.Model.Entities;
 using CommonTypesLayer.DataAccess.Implementaitons.EF;
+using System.Reflection.Metadata;
 
 namespace Ah.DataAccess.EF.Repositoryies
 {
@@ -9,12 +10,13 @@ namespace Ah.DataAccess.EF.Repositoryies
     {
         public List<Product> GetByPriceRange(decimal min, decimal max)
         {
-            throw new NotImplementedException();
+            var result = GetAll(prd => prd.UnitPrice < max && prd.UnitPrice > min);
+            return result;
         }
 
-        public List<Product> GetByStockRange(decimal min, decimal max)
+        public List<Product> GetProductsByStock(short min, short max)
         {
-            throw new NotImplementedException();
+            return GetAll(prd => prd.UnitsInStock > min && prd.UnitsInStock < max);
         }
     }
 }

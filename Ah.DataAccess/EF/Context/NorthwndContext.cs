@@ -1,6 +1,7 @@
 ﻿using Ah.Model.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Ah.DataAccess.EF.Context
@@ -15,12 +16,11 @@ namespace Ah.DataAccess.EF.Context
         public DbSet<Category> Categories { get; set; }
         public DbSet<Employee> Employees { get; set; }
 
-
         //Mapping
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
-        //    //modelBuilder.Entity<Product>().Property("Urun_Adi").HasColumnName("ProductName");
-        //    //modelBuilder.Entity<Product>().ToTable("Products");
+        //    modelBuilder.Entity<Product>().Property(x => x.ProductName).HasColumnName("UrunAdi");
+        //    modelBuilder.Entity<Product>().ToTable("Products");
         //}
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{

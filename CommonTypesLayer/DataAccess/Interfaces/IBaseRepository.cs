@@ -1,4 +1,5 @@
 ﻿using CommonTypesLayer.Model;
+using System.Linq.Expressions;
 
 namespace CommonTypesLayer.DataAccess.Interfaces
 {
@@ -6,7 +7,7 @@ namespace CommonTypesLayer.DataAccess.Interfaces
         where TEntity :class, IEntity
     {
         //CRUD işelemlerini gerçekleştirmek için oluşuturulan Interface...
-        List<TEntity> GetAll();
+        List<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate = null);
         TEntity Get();
         void Insert(TEntity entitiy);
         void Update(TEntity entitiy);

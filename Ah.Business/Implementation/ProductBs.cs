@@ -32,5 +32,37 @@ namespace Ah.Business.Implementation
             //Validation
             //Authenticaiton
         }
+
+        public List<Product> GetProductsByPrice(decimal min, decimal max)
+        {
+            //Loglama
+            //Validation
+            //Authenticaiton
+
+            //VeriTabanından getAll ile ürünleri getirecek....
+            return _repo.GetByPriceRange(min, max);
+            //Loglama
+            //Validation
+            //Authenticaiton
+        }
+
+        public List<Product> GetProductsByStock(short min, short max)
+        {
+            //Loglama
+            //Validation
+            //Authenticaiton
+
+            //VeriTabanından getAll ile ürünleri getirecek....
+            var result = _repo.GetProductsByStock(min, max);
+            return result;
+            //Loglama
+            //Validation
+            //Authenticaiton
+        }
+
+        public void Insert(Product entity)
+        {
+           _repo.Insert(entity);
+        }
     }
 }

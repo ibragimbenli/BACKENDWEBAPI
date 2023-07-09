@@ -1,6 +1,9 @@
 ﻿using CommonTypesLayer.DataAccess.Interfaces;
 using CommonTypesLayer.Model;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.Design;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace CommonTypesLayer.DataAccess.Implementaitons.EF
 {
@@ -21,12 +24,21 @@ namespace CommonTypesLayer.DataAccess.Implementaitons.EF
             throw new NotImplementedException();
         }
 
-        public List<TEntity> GetAll()
+        public List<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate = null)
         {
+            //delagate generic
+            //func
+            //act
+            //pridicate
+            //Expression<Func<Product>,bool>
             using (var ctx = new TContext())
             {
-                return ctx.Set<TEntity>().ToList();
+                if (predicate == null)
+                    return ctx.Set<TEntity>().ToList();
+                else
+                    return ctx.Set<TEntity>().Where(predicate).ToList();
             }
+
         }
 
         public void Insert(TEntity entitiy)

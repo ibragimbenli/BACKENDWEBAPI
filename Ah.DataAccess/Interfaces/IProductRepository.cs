@@ -8,6 +8,6 @@ namespace Ah.DataAccess.Interfaces
         //Interface ile buraya CRUD işlemlerini getirdim...
         //CRUD işlemlerinin haricinde kullandığım metodlar aşağıda
         List<Product> GetByPriceRange(decimal min, decimal max);
-        List<Product> GetByStockRange(decimal min, decimal max);
+        List<Product> GetProductsByStock(short min, short max);
     }
 }
