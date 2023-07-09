@@ -33,9 +33,9 @@ namespace Ah.WebbApi.Controllers
             return _productBs.GetProductsByStock(min,max);
         }
         [HttpPost]
-        public void SaveNewProduct()
+        public void SaveNewProduct(Product entity)
         {
-            //_productBs.insert();
+            _productBs.Insert(entity);
         }
 
     }
