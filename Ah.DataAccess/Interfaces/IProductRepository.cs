@@ -9,5 +9,6 @@ namespace Ah.DataAccess.Interfaces
         //CRUD işlemlerinin haricinde kullandığım metodlar aşağıda
         List<Product> GetByPriceRange(decimal min, decimal max);
         List<Product> GetProductsByStock(short min, short max);
+        Product GetById(int productId);
     }
 }

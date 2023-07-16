@@ -19,9 +19,13 @@ namespace CommonTypesLayer.DataAccess.Implementaitons.EF
             ctx.SaveChanges();
         }
 
-        public TEntity Get()
+        public TEntity Get(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            using (var ctx = new TContext())
+            {
+
+                return ctx.Set<TEntity>().SingleOrDefault(predicate);
+            }
         }
 
         public List<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate = null)

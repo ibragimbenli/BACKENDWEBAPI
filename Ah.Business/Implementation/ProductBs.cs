@@ -18,6 +18,11 @@ namespace Ah.Business.Implementation
             _repo = repo;
         }
 
+        public Product GetById(int productId)
+        {
+            return _repo.GetById(productId);
+        }
+
         // readonly ya buraya tanımlandığı anda setleme yapacağız ya da constructor içinde setleeyceğiz. Eğer buraya bunu koymazsak isteyen herkes her yerde _repo'yu setler ve buda bizim işimize gelmez. 
         public List<Product> GetProducts()
         {

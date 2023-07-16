@@ -17,6 +17,17 @@ namespace Ah.WebbApi.Controllers
         {
             _productBs = productBs;
         }
+        [HttpGet("{id}")]//..api/products/7
+        public IActionResult GetById([FromRoute]int id)
+        {
+            var product = _productBs.GetById(id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return Ok(product);
+        }
         [HttpGet]
         public IActionResult GetProducts()
         {
@@ -25,7 +36,7 @@ namespace Ah.WebbApi.Controllers
                 return Ok(products);
             else
                 return NotFound();
-
+            StatusCodeResult
             //return NotFound();
             //return Ok();
             //return NoContent();
@@ -49,14 +60,17 @@ namespace Ah.WebbApi.Controllers
             else return NotFound();
         }
         [HttpPost]
-        public void SaveNewProduct(Product product)
+        public IActionResult SaveNewProduct(Product product)
         {
+            if (product == null) 
+                return BadRequest("Error: 'Gerekli veri gönderilmedi'");
             _productBs.Insert(product);
+            //return Created(nameof(GetProducts),product);
+            return CreatedAtAction(nameof(GetById),new { id= product.ProductID}, product);
         }
 
     }
 }
-
 
 //EF Linq Extentions Method
 //var ctx = new NorthwndContext();

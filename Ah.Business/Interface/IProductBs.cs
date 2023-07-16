@@ -12,6 +12,10 @@ namespace Ah.Business.Interface
         List<Product> GetProducts();
         List<Product> GetProductsByPrice(decimal min, decimal max);
         List<Product> GetProductsByStock(short min , short max);
+
+        Product GetById(int productId);
+
+
         void Insert(Product entity);
     }
 }
