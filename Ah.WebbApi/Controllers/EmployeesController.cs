@@ -1,4 +1,5 @@
-﻿using Ah.Business.Interface;
+﻿using Ah.Business.Implementation;
+using Ah.Business.Interface;
 using Ah.Model.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,13 @@ namespace Ah.WebbApi.Controllers
                 _employeeBs = employeeBs;
         }
         [HttpGet]
-        public List<Employee> GetAllEmployees()
+        public IActionResult GetAllEmployees()
         {
             //requesti clienttan aldıktan sonra kendi yapacaklarını burada yapacak sonra businessle haberleşecek...
             var employeeList = _employeeBs.GetEmployees();
-            return employeeList;
+            if (employeeList.Count > 0)
+                return Ok(employeeList);
+            else return NotFound();
         }
 
 

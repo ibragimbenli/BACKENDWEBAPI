@@ -18,24 +18,40 @@ namespace Ah.WebbApi.Controllers
             _productBs = productBs;
         }
         [HttpGet]
-        public List<Product> GetProducts()
+        public IActionResult GetProducts()
         {
-            return _productBs.GetProducts();
+            var products = _productBs.GetProducts();
+            if (products.Count > 0)
+                return Ok(products);
+            else
+                return NotFound();
+
+            //return NotFound();
+            //return Ok();
+            //return NoContent();
         }
         [HttpGet("getbyprice")]
-        public List<Product> GetByPriceRange([FromQuery]decimal min, [FromQuery] decimal max)
+        public IActionResult GetByPriceRange([FromQuery] decimal min, [FromQuery] decimal max)
         {
-            return _productBs.GetProductsByPrice(min, max);
+            var products = _productBs.GetProductsByPrice(min, max);
+
+            if (products.Count > 0) 
+                return Ok(products);
+            else 
+                return NotFound();
         }
         [HttpGet("getbystock")]
-        public List<Product> GetProductsByStock(short min, short max)
+        public IActionResult GetProductsByStock(short min, short max)
         {
-            return _productBs.GetProductsByStock(min,max);
+            var products =  _productBs.GetProductsByStock(min, max);
+            if (products.Count > 0) 
+                return Ok(products);
+            else return NotFound();
         }
         [HttpPost]
-        public void SaveNewProduct(Product entity)
+        public void SaveNewProduct(Product product)
         {
-            _productBs.Insert(entity);
+            _productBs.Insert(product);
         }
 
     }

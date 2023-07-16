@@ -13,6 +13,7 @@ https://www.entityframeworktutorial.net/efcore/configure-one-to-one-relationship
             //Console.WriteLine(dolar);
 //IEnumarable => Datalar execute edilmiþ yani RAM'a çýkarýlmýþ demektir.
 //IQuarable	  => Datalar hala veri kaynaðýnda bulunuyor.
+//SQL REGEX => Arama Filtresi oluþtuma...
 
 delagate
 func
