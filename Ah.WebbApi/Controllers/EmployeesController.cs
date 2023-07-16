@@ -14,6 +14,7 @@ namespace Ah.WebbApi.Controllers
         {
                 _employeeBs = employeeBs;
         }
+        [HttpGet]
         public List<Employee> GetAllEmployees()
         {
             //requesti clienttan aldıktan sonra kendi yapacaklarını burada yapacak sonra businessle haberleşecek...

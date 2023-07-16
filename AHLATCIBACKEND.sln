@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{C9D60FA2-F780-406C-AA60-CCDD683FF1F7}"
 	ProjectSection(SolutionItems) = preProject
 		08072023.txt = 08072023.txt
+		16072023 = 16072023
 		Definations.txt = Definations.txt
 	EndProjectSection
 EndProject

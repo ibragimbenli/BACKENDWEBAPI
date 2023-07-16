@@ -23,7 +23,7 @@ namespace Ah.WebbApi.Controllers
             return _productBs.GetProducts();
         }
         [HttpGet("getbyprice")]
-        public List<Product> GetByPriceRange(decimal min, decimal max)
+        public List<Product> GetByPriceRange([FromQuery]decimal min, [FromQuery] decimal max)
         {
             return _productBs.GetProductsByPrice(min, max);
         }
