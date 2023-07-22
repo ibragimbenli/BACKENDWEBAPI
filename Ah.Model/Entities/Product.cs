@@ -1,4 +1,5 @@
 ﻿using CommonTypesLayer.Model;
+using System.ComponentModel.DataAnnotations;
 
 namespace Ah.Model.Entities
 {
@@ -12,8 +13,11 @@ namespace Ah.Model.Entities
         //Bu tablo Category Tablosu ile ilişkili yani her bir product'ın bir tane cateory'si var ve bunu burada anlatmam lazım...
         public int ProductID { get; set; }
         //validasyonları burda yapabiliriz..
+        [Required(ErrorMessage = "Ürün Adı Alanı gereklidir.")]
+        [MaxLength(10)]
         public string? ProductName { get; set; }
         public decimal? UnitPrice { get; set; }
+        //[Range(0, 999)]
         public short? UnitsInStock { get; set; }
         public int? CategoryID { get; set; }
         //Navigation Property

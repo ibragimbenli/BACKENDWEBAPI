@@ -19,9 +19,9 @@ namespace Ah.WebbApi.Controllers
         }
         //[HttpGet("getbyId")]//([FromQuery])getbyId?id=5
         [HttpGet("{id}")]//([FromRoute])..api/products/7
-        public IActionResult GetById([FromRoute]int id)
+        public IActionResult GetById([FromRoute] int id)
         {
-            var product = _productBs.GetById(id);
+            var product = _productBs.GetById(id, "Category");
 
             if (product == null)
             {
@@ -29,10 +29,10 @@ namespace Ah.WebbApi.Controllers
             }
             return Ok(product);
         }
-        [HttpGet]
+         [HttpGet]
         public IActionResult GetProducts()
         {
-            var products = _productBs.GetProducts();
+            var products = _productBs.GetProducts("Category");
             if (products.Count > 0)
                 return Ok(products);
             else
@@ -45,31 +45,31 @@ namespace Ah.WebbApi.Controllers
         [HttpGet("getbyprice")]
         public IActionResult GetByPriceRange([FromQuery] decimal min, [FromQuery] decimal max)
         {
-            var products = _productBs.GetProductsByPrice(min, max);
+            var products = _productBs.GetProductsByPrice(min, max, "Category");
 
-            if (products.Count > 0) 
+            if (products.Count > 0)
                 return Ok(products);
-            else 
+            else
                 return NotFound();
         }
         [HttpGet("getbystock")]
         public IActionResult GetProductsByStock(short min, short max)
         {
-            var products =  _productBs.GetProductsByStock(min, max);
-            if (products.Count > 0) 
+            var products = _productBs.GetProductsByStock(min, max, "Category");
+            if (products.Count > 0)
                 return Ok(products);
             else return NotFound();
         }
+
         [HttpPost]
         public IActionResult SaveNewProduct(Product product)
         {
-            if (product == null) 
+            if (product == null)
                 return BadRequest("Error: 'Gerekli veri gönderilmedi'");
             _productBs.Insert(product);
             //return Created(nameof(GetProducts),product);
-            return CreatedAtAction(nameof(GetById),new { id= product.ProductID}, product);
+            return CreatedAtAction(nameof(GetById), new { id = product.ProductID }, product);
         }
-
     }
 }
 

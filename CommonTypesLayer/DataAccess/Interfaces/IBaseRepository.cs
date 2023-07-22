@@ -1,14 +1,16 @@
 ﻿using CommonTypesLayer.Model;
+using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
 namespace CommonTypesLayer.DataAccess.Interfaces
 {
-    public interface IBaseRepository<TEntity> 
-        where TEntity :class, IEntity
+    public interface IBaseRepository<TEntity>
+        where TEntity : class, IEntity
     {
         //CRUD işelemlerini gerçekleştirmek için oluşuturulan Interface...
-        List<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate = null);
-        TEntity Get(Expression<Func<TEntity, bool>> predicate);
+        //ctx....Include("Category","Employee","City","S..."
+        List<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate = null, params string[] includeList);
+        TEntity Get(Expression<Func<TEntity, bool>> predicate, params string[] includeList);
         void Insert(TEntity entitiy);
         void Update(TEntity entitiy);
         void Delete(TEntity entitiy);

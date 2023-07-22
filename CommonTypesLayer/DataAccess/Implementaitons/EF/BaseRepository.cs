@@ -19,16 +19,24 @@ namespace CommonTypesLayer.DataAccess.Implementaitons.EF
             ctx.SaveChanges();
         }
 
-        public TEntity Get(Expression<Func<TEntity, bool>> predicate)
+        public TEntity Get(Expression<Func<TEntity, bool>> predicate, params string[] includeList)
         {
             using (var ctx = new TContext())
             {
+                IQueryable<TEntity> dbSet = ctx.Set<TEntity>();
+                if (includeList.Length > 0)
+                {
+                    foreach (var item in includeList)
+                    {
+                        dbSet = dbSet.Include(item);
+                    }
+                }
 
-                return ctx.Set<TEntity>().SingleOrDefault(predicate);
+                return dbSet.SingleOrDefault(predicate);
             }
         }
 
-        public List<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate = null)
+        public List<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate = null, params string[] includeList)
         {
             //delagate generic
             //func
@@ -37,10 +45,18 @@ namespace CommonTypesLayer.DataAccess.Implementaitons.EF
             //Expression<Func<Product>,bool>
             using (var ctx = new TContext())
             {
+                IQueryable<TEntity> dbSet = ctx.Set<TEntity>();
+                if (includeList.Length > 0)
+                {
+                    foreach (var item in includeList)
+                    {
+                        dbSet = dbSet.Include(item);
+                    }
+                }
                 if (predicate == null)
-                    return ctx.Set<TEntity>().ToList();
+                    return dbSet.ToList();
                 else
-                    return ctx.Set<TEntity>().Where(predicate).ToList();
+                    return dbSet.Where(predicate).ToList();
             }
 
         }
