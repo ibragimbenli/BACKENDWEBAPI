@@ -17,7 +17,8 @@ namespace Ah.WebbApi.Controllers
         {
             _productBs = productBs;
         }
-        [HttpGet("{id}")]//..api/products/7
+        //[HttpGet("getbyId")]//([FromQuery])getbyId?id=5
+        [HttpGet("{id}")]//([FromRoute])..api/products/7
         public IActionResult GetById([FromRoute]int id)
         {
             var product = _productBs.GetById(id);
