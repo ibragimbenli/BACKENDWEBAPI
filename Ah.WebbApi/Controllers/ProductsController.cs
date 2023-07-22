@@ -37,7 +37,7 @@ namespace Ah.WebbApi.Controllers
                 return Ok(products);
             else
                 return NotFound();
-            StatusCodeResult
+            //StatusCodeResult
             //return NotFound();
             //return Ok();
             //return NoContent();

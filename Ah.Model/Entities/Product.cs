@@ -11,6 +11,7 @@ namespace Ah.Model.Entities
         // Dikkat etmemiz gereken bir diğer konu ise kolonun NOT NULL durumudur. eğer biz burada kolonu NOT NULL olarak işaretlersek ve arayüzden buraya null ifadesi gelirse hata alırız...
         //Bu tablo Category Tablosu ile ilişkili yani her bir product'ın bir tane cateory'si var ve bunu burada anlatmam lazım...
         public int ProductID { get; set; }
+        //validasyonları burda yapabiliriz..
         public string? ProductName { get; set; }
         public decimal? UnitPrice { get; set; }
         public short? UnitsInStock { get; set; }
