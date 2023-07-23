@@ -10,4 +10,8 @@
     <ProjectReference Include="..\CommonTypesLayer\CommonTypesLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dtos\Category\" />
+  </ItemGroup>
+
 </Project>
