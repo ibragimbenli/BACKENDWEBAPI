@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ah.Model.Dtos.Product
 {
-    public class ProductGetDto : IDto
+    public class ProductDto : IDto
     {
         public string? ProductName { get; set; }
         public decimal? UnitPrice { get; set; }

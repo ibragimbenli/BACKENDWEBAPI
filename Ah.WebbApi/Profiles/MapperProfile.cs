@@ -1,0 +1,14 @@
+﻿using Ah.Model.Dtos.Product;
+using Ah.Model.Entities;
+using AutoMapper;
+
+namespace Ah.WebbApi.Profiles
+{
+    public class MapperProfile : Profile
+    {
+        public MapperProfile()
+        {
+            CreateMap<Product, ProductDto>().ForMember(dst => dst.CategoryName, X => X.MapFrom(src => src.Category.CategoryName));
+        }
+    }
+}

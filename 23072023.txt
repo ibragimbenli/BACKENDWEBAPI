@@ -1,2 +1,10 @@
 DTO --- (Data Traner Object) bu kavram DB'deki gerçek Entityler yerine genellikle clientlar için birden fazla tablodan veriler çekilerek oluþutrulan classlara verilen soyut bir isimdir...
 Entity kavramýyla DBdeki gerçek tablolarý kasediyoruz...
+
+1 - DTO classý oluþturduk
+2 - AutoMapper Projemize dahil ediyoruz
+3 - Klasör açýp MaperProfile isimli sýnýfý oluþturduk.
+4 - MapperProfile içerisine CreateMap ile Maplame kodlarýný yazdýk.
+5 - Program.cs'te gerekli kodlarý yazdýk.
+6 - Controllerda önce Depedency Injection ile IMapperi aldýk. Bunu Program.csteki kod sayesinde yaptýk.
+7 - Metodlar içerisinde Mapper ile Mapping iþlem kodlarýný yazdýk...

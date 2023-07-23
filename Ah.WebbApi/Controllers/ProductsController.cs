@@ -4,6 +4,8 @@ using Ah.DataAccess.ExtensionMetod;
 using Ah.DataAccess.EF.Context;
 using Ah.Model.Entities;
 using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
+using Ah.Model.Dtos.Product;
 
 namespace Ah.WebbApi.Controllers
 {
@@ -12,10 +14,12 @@ namespace Ah.WebbApi.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductBs _productBs;
-
-        public ProductsController(IProductBs productBs)
+        private readonly IMapper _mapper;
+       
+        public ProductsController(IProductBs productBs, IMapper mapper)
         {
             _productBs = productBs;
+            _mapper = mapper;
         }
         //[HttpGet("getbyId")]//([FromQuery])getbyId?id=5
         [HttpGet("{id}")]//([FromRoute])..api/products/7
@@ -27,16 +31,45 @@ namespace Ah.WebbApi.Controllers
             {
                 return NotFound();
             }
+            else
             return Ok(product);
         }
-         [HttpGet]
+        [HttpGet]
         public IActionResult GetProducts()
         {
             var products = _productBs.GetProducts("Category");
+
             if (products.Count > 0)
-                return Ok(products);
+            {
+                var productList = _mapper.Map<List<ProductDto>>(products);
+                //return Ok(_mapper.Map<List<ProductDto>>(products));
+
+                return Ok(productList);
+            }
             else
                 return NotFound();
+
+            #region Klasik Yol
+            //var products = _productBs.GetProducts("Category");
+
+            //if (products.Count > 0)
+            //{
+            //    var productList = new List<ProductDto>();
+            //    foreach (var product in products)
+            //    {
+            //        var dto = new ProductDto();
+            //        dto.ProductName = product.ProductName;
+            //        dto.CategoryName = product.Category.CategoryName;
+            //        dto.UnitPrice = product.UnitPrice;
+            //        dto.UnitsInStock = product.UnitsInStock;
+            //        productList.Add(dto);
+            //    }
+
+            //    return Ok(productList);
+            //}
+            //else
+            //    return NotFound(); 
+            #endregion
             //StatusCodeResult
             //return NotFound();
             //return Ok();
@@ -48,7 +81,12 @@ namespace Ah.WebbApi.Controllers
             var products = _productBs.GetProductsByPrice(min, max, "Category");
 
             if (products.Count > 0)
-                return Ok(products);
+            {
+                var productList = _mapper.Map<List<ProductDto>>(products);
+                //return Ok(_mapper.Map<List<ProductDto>>(products));
+
+                return Ok(productList);
+            }
             else
                 return NotFound();
         }
@@ -56,8 +94,14 @@ namespace Ah.WebbApi.Controllers
         public IActionResult GetProductsByStock(short min, short max)
         {
             var products = _productBs.GetProductsByStock(min, max, "Category");
+
             if (products.Count > 0)
-                return Ok(products);
+            {
+                var productList = _mapper.Map<List<ProductDto>>(products);
+                //return Ok(_mapper.Map<List<ProductDto>>(products));
+
+                return Ok(productList);
+            }
             else return NotFound();
         }
 
