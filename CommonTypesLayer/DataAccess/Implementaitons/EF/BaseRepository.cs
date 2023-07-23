@@ -26,9 +26,9 @@ namespace CommonTypesLayer.DataAccess.Implementaitons.EF
                 IQueryable<TEntity> dbSet = ctx.Set<TEntity>();
                 if (includeList.Length > 0)
                 {
-                    foreach (var item in includeList)
+                    foreach (var include in includeList)
                     {
-                        dbSet = dbSet.Include(item);
+                        dbSet = dbSet.Include(include);
                     }
                 }
 
