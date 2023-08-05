@@ -28,11 +28,11 @@ namespace Ah.WebbApi.Controllers
             var product = _productBs.GetById(id, "Category");
 
             if (product == null)
-            {
                 return NotFound();
-            }
-            else
-            return Ok(product);
+
+            var dto = _mapper.Map<ProductGetDto>(product);
+
+            return Ok(dto);
         }
         [HttpGet]
         public IActionResult GetProducts()
@@ -41,7 +41,7 @@ namespace Ah.WebbApi.Controllers
 
             if (products.Count > 0)
             {
-                var productList = _mapper.Map<List<ProductDto>>(products);
+                var productList = _mapper.Map<List<ProductGetDto>>(products);
                 //return Ok(_mapper.Map<List<ProductDto>>(products));
 
                 return Ok(productList);
@@ -82,7 +82,7 @@ namespace Ah.WebbApi.Controllers
 
             if (products.Count > 0)
             {
-                var productList = _mapper.Map<List<ProductDto>>(products);
+                var productList = _mapper.Map<List<ProductGetDto>>(products);
                 //return Ok(_mapper.Map<List<ProductDto>>(products));
 
                 return Ok(productList);
@@ -97,7 +97,7 @@ namespace Ah.WebbApi.Controllers
 
             if (products.Count > 0)
             {
-                var productList = _mapper.Map<List<ProductDto>>(products);
+                var productList = _mapper.Map<List<ProductGetDto>>(products);
                 //return Ok(_mapper.Map<List<ProductDto>>(products));
 
                 return Ok(productList);
