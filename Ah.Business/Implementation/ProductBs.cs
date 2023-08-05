@@ -18,6 +18,11 @@ namespace Ah.Business.Implementation
             _repo = repo;
         }
 
+        public void Delete(Product entity)
+        {
+            _repo.Delete(entity);
+        }
+
         public Product GetById(int productId, params string[] includeList)
         {
             return _repo.GetById(productId);
@@ -69,6 +74,11 @@ namespace Ah.Business.Implementation
         public void Insert(Product entity)
         {
            _repo.Insert(entity);
+        }
+
+        public void Update(Product entity)
+        {
+            _repo.Update(entity);
         }
     }
 }

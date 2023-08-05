@@ -14,5 +14,7 @@ namespace Ah.Business.Interface
         List<Product> GetProductsByStock(short min, short max, params string[] includeList);
         Product GetById(int productId, params string[] includeList);
         void Insert(Product entity);
+        void Update(Product entity);
+        void Delete(Product entity);
     }
 }

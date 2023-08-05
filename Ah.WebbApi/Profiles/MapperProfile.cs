@@ -8,8 +8,12 @@ namespace Ah.WebbApi.Profiles
     {
         public MapperProfile()
         {
-            CreateMap<Product, ProductGetDto>().ForMember(dst => dst.CategoryId, src => src.MapFrom(src => src.Category.CategoryName));
+            CreateMap<Product, ProductGetDto>()
+                .ForMember(dst => dst.CategoryName,
+                            X => X.MapFrom(src => src.Category.CategoryName));
 
+            CreateMap<ProductPostDto, Product>();
+            CreateMap<ProductPutDto, Product>();
             //CreateMap<Product, ProductDto>().ForMember(hedef => hedef.CategoryName, kaynak => kaynak.MapFrom(src => src.Category.CategoryName));
         }
     }
