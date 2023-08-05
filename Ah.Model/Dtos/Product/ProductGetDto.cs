@@ -12,7 +12,7 @@ namespace Ah.Model.Dtos.Product
         public string? ProductName { get; set; }
         public decimal? UnitPrice { get; set; }
         public short? UnitsInStock { get; set; }
-        public string? CategoryID { get; set; }
+        public int? CategoryID { get; set; }
         //CategoryName - CategoryId
     }
 }
