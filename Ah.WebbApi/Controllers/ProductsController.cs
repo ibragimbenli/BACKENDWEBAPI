@@ -6,6 +6,7 @@ using Ah.Model.Entities;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Ah.Model.Dtos.Product;
+using CommonTypesLayer.Utilities;
 
 namespace Ah.WebbApi.Controllers
 {
@@ -35,15 +36,15 @@ namespace Ah.WebbApi.Controllers
 
         }
         [Produces("application/json", "text/plain")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<ProductGetDto>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResponse<List<ProductGetDto>>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
         [HttpGet]
         public IActionResult GetProducts()
         {
-            var dtoList = _productBs.GetProducts("Category");
+            var response = _productBs.GetProducts("Category");
 
-            if (dtoList != null)
-                return Ok(dtoList);
+            if (response != null)
+                return Ok(response.Data);
 
             return NotFound("Hiç Ürün Bulunamadı.");
 

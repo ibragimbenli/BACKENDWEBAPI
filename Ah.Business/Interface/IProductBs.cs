@@ -1,5 +1,6 @@
 ﻿using Ah.Model.Dtos.Product;
 using Ah.Model.Entities;
+using CommonTypesLayer.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Ah.Business.Interface
 {
     public interface IProductBs
     {
-        List<ProductGetDto> GetProducts(params string[] includeList);
+        ApiResponse<List<ProductGetDto>> GetProducts(params string[] includeList);
         List<ProductGetDto> GetProductsByPrice(decimal min, decimal max, params string[] includeList);
         List<ProductGetDto> GetProductsByStock(short min, short max, params string[] includeList);
         ProductGetDto GetById(int productId, params string[] includeList);

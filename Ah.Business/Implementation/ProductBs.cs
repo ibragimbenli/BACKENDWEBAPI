@@ -4,6 +4,8 @@ using Ah.Model.Dtos.Product;
 using Ah.Model.Entities;
 using AutoMapper;
 using CommonTypesLayer.Model;
+using CommonTypesLayer.Utilities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +45,7 @@ namespace Ah.Business.Implementation
         }
 
         // readonly ya buraya tanımlandığı anda setleme yapacağız ya da constructor içinde setleeyceğiz. Eğer buraya bunu koymazsak isteyen herkes her yerde _repo'yu setler ve buda bizim işimize gelmez. 
-        public List<ProductGetDto> GetProducts(params string[] includeList)
+        public ApiResponse<List<ProductGetDto>> GetProducts(params string[] includeList)
         {
             //Loglama
             //Authenticaiton
@@ -54,11 +56,11 @@ namespace Ah.Business.Implementation
             if (products.Count > 0)
             {
                 var productList = _mapper.Map<List<ProductGetDto>>(products);
-
-                return productList;
+                
+                return ApiResponse<List<ProductGetDto>>.Success(StatusCodes.Status200OK, productList);
             }
 
-            return null; ;
+            return ApiResponse<List<ProductGetDto>>.Fail(StatusCodes.Status404NotFound,"Ürün Bulunamadı."); ; ;
 
             //Loglama
             //Validation

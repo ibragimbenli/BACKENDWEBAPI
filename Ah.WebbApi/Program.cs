@@ -26,7 +26,7 @@ builder.Services.AddScoped<IEmployeeBs, EmployeeBs>();
 
 builder.Services.AddControllersWithViews().AddJsonOptions(x =>
 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);//ayný zamanda DI yapmamýzý saðlýyor
+builder.Services.AddAutoMapper(typeof(ProductMapperProfile).Assembly);//ayný zamanda DI yapmamýzý saðlýyor
 
 
 var app = builder.Build();

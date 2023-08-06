@@ -4,9 +4,9 @@ using AutoMapper;
 
 namespace Ah.Business.Profiles
 {
-    public class MapperProfile : Profile
+    public class ProductMapperProfile : Profile
     {
-        public MapperProfile()
+        public ProductMapperProfile()
         {
             CreateMap<Product, ProductGetDto>()
                 .ForMember(dst => dst.CategoryName,
