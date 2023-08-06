@@ -14,12 +14,10 @@ namespace Ah.WebbApi.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductBs _productBs;
-        private readonly IMapper _mapper;
 
-        public ProductsController(IProductBs productBs, IMapper mapper)
+        public ProductsController(IProductBs productBs)
         {
             _productBs = productBs;
-            _mapper = mapper;
         }
         [Produces("application/json", "text/plain")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProductGetDto))]
@@ -28,14 +26,13 @@ namespace Ah.WebbApi.Controllers
         [HttpGet("{id}")]//([FromRoute])..api/products/7
         public IActionResult GetById([FromRoute] int id)
         {
-            var product = _productBs.GetById(id, "Category");
+            var dto = _productBs.GetById(id, "Category");
 
-            if (product == null)
-                return NotFound();
-
-            var dto = _mapper.Map<ProductGetDto>(product);
+            if (dto == null)
+                return NotFound(dto);
 
             return Ok(dto);
+
         }
         [Produces("application/json", "text/plain")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<ProductGetDto>))]
@@ -43,17 +40,12 @@ namespace Ah.WebbApi.Controllers
         [HttpGet]
         public IActionResult GetProducts()
         {
-            var products = _productBs.GetProducts("Category");
+            var dtoList = _productBs.GetProducts("Category");
 
-            if (products.Count > 0)
-            {
-                var productList = _mapper.Map<List<ProductGetDto>>(products);
-                //return Ok(_mapper.Map<List<ProductDto>>(products));
+            if (dtoList != null)
+                return Ok(dtoList);
 
-                return Ok(productList);
-            }
-            else
-                return NotFound("Hiç Ürün Bulunamadı.");
+            return NotFound("Hiç Ürün Bulunamadı.");
 
             #region Klasik Yol
             //var products = _productBs.GetProducts("Category");
@@ -84,14 +76,12 @@ namespace Ah.WebbApi.Controllers
         [HttpGet("getbyprice")]
         public IActionResult GetByPriceRange([FromQuery] decimal min, [FromQuery] decimal max)
         {
-            var products = _productBs.GetProductsByPrice(min, max, "Category");
+            var dtoList = _productBs.GetProductsByPrice(min, max, "Category");
 
-            if (products.Count > 0)
+            if (dtoList != null)
             {
-                var productList = _mapper.Map<List<ProductGetDto>>(products);
-                //return Ok(_mapper.Map<List<ProductDto>>(products));
 
-                return Ok(productList);
+                return Ok(dtoList);
             }
             else
                 return NotFound();
@@ -99,14 +89,11 @@ namespace Ah.WebbApi.Controllers
         [HttpGet("getbystock")]
         public IActionResult GetProductsByStock(short min, short max)
         {
-            var products = _productBs.GetProductsByStock(min, max, "Category");
+            var dtoList = _productBs.GetProductsByStock(min, max, "Category");
 
-            if (products.Count > 0)
+            if (dtoList != null)
             {
-                var productList = _mapper.Map<List<ProductGetDto>>(products);
-                //return Ok(_mapper.Map<List<ProductDto>>(products));
-
-                return Ok(productList);
+                return Ok(dtoList);
             }
             else return NotFound();
         }
@@ -116,34 +103,29 @@ namespace Ah.WebbApi.Controllers
         {
             if (dto == null)
                 return BadRequest("Error: 'Gerekli veri gönderilmedi'");
-            var product = _mapper.Map<Product>(dto);
-            _productBs.Insert(product);
-            //return Created(nameof(GetProducts),product);
-            return CreatedAtAction(nameof(GetById), new { id = product.ProductID }, product);
+
+            var insertedProduct = _productBs.Insert(dto);
+
+            return CreatedAtAction(nameof(GetById), new { id = insertedProduct.ProductID }, insertedProduct);
         }
 
         [Produces("application/json", "text/plain")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         [HttpPut]
-        public IActionResult UpdateProduct([FromBody] ProductPostDto dto)
+        public IActionResult UpdateProduct([FromBody] ProductPutDto dto)
         {
             if (dto == null)
                 return BadRequest("Error: 'Gerekli veri gönderilmedi'");
-            var product = _mapper.Map<Product>(dto);
-            _productBs.Update(product);
+
+            _productBs.Update(dto);
             return Ok();
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteProduct([FromQuery] int id)
         {
-            var product = _productBs.GetById(id);
-
-            if (product == null)
-                return NotFound();
-
-           _productBs.Delete(product);
+            _productBs.Delete(id);
 
             return Ok();
         }

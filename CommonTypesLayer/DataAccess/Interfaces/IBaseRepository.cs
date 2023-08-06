@@ -11,7 +11,7 @@ namespace CommonTypesLayer.DataAccess.Interfaces
         //ctx....Include("Category","Employee","City","S..."
         List<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate = null, params string[] includeList);
         TEntity Get(Expression<Func<TEntity, bool>> predicate, params string[] includeList);
-        void Insert(TEntity entitiy);
+        TEntity Insert(TEntity entitiy);
         void Update(TEntity entitiy);
         void Delete(TEntity entitiy);
     }

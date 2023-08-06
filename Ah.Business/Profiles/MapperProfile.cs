@@ -2,7 +2,7 @@
 using Ah.Model.Entities;
 using AutoMapper;
 
-namespace Ah.WebbApi.Profiles
+namespace Ah.Business.Profiles
 {
     public class MapperProfile : Profile
     {

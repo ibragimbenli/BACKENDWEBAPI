@@ -61,11 +61,14 @@ namespace CommonTypesLayer.DataAccess.Implementaitons.EF
 
         }
 
-        public void Insert(TEntity entitiy)
+        public TEntity Insert(TEntity entitiy)
         {
             using var ctx = new TContext();
-            ctx.Set<TEntity>().Add(entitiy);
+
+            var entityT = ctx.Set<TEntity>().Add(entitiy);
+            
             ctx.SaveChanges();
+            return entityT.Entity;
         }
 
         public void Update(TEntity entitiy)

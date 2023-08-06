@@ -7,6 +7,7 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Xml;
+using Ah.Business.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +26,7 @@ builder.Services.AddScoped<IEmployeeBs, EmployeeBs>();
 
 builder.Services.AddControllersWithViews().AddJsonOptions(x =>
 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-builder.Services.AddAutoMapper(typeof(Program).Assembly);//ayný zamanda DI yapmamýzý saðlýyor
+builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);//ayný zamanda DI yapmamýzý saðlýyor
 
 
 var app = builder.Build();
