@@ -12,11 +12,11 @@ namespace Ah.Business.Interface
     public interface IProductBs
     {
         ApiResponse<List<ProductGetDto>> GetProducts(params string[] includeList);
-        List<ProductGetDto> GetProductsByPrice(decimal min, decimal max, params string[] includeList);
-        List<ProductGetDto> GetProductsByStock(short min, short max, params string[] includeList);
-        ProductGetDto GetById(int productId, params string[] includeList);
-        Product Insert(ProductPostDto entity);
-        void Update(ProductPutDto entity);
-        void Delete(int id);
+        ApiResponse<List<ProductGetDto>> GetProductsByPrice(decimal min, decimal max, params string[] includeList);
+        ApiResponse<List<ProductGetDto>> GetProductsByStock(short min, short max, params string[] includeList);
+        ApiResponse<ProductGetDto> GetById(int productId, params string[] includeList);
+        ApiResponse<Product> Insert(ProductPostDto entity);
+        ApiResponse<NoData> Update(ProductPutDto entity);
+        ApiResponse<NoData> Delete(int id);
     }
 }

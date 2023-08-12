@@ -20,19 +20,23 @@ namespace Ah.WebbApi.Controllers
         {
             _productBs = productBs;
         }
+
+
+        #region Swagger
         [Produces("application/json", "text/plain")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProductGetDto))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResponse<ProductGetDto>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ApiResponse<ProductGetDto>))]
         //[HttpGet("getbyId")]//([FromQuery])getbyId?id=5
-        [HttpGet("{id}")]//([FromRoute])..api/products/7
+        //([FromRoute])..api/products/7
+        #endregion
+
+        [HttpGet("{id}")]
         public IActionResult GetById([FromRoute] int id)
         {
-            var dto = _productBs.GetById(id, "Category");
+            var response = _productBs.GetById(id, "Category");
 
-            if (dto == null)
-                return NotFound(dto);
 
-            return Ok(dto);
+            return Ok(response);
 
         }
         [Produces("application/json", "text/plain")]
