@@ -1,4 +1,5 @@
-﻿using Ah.Business.Interface;
+﻿using Ah.Business.CustomExceptions;
+using Ah.Business.Interface;
 using Ah.DataAccess.Interfaces;
 using Ah.Model.Dtos.Product;
 using Ah.Model.Entities;
@@ -25,23 +26,46 @@ namespace Ah.Business.Implementation
             _mapper = mapper;
         }
 
-        public void Delete(int id)
+        public ApiResponse<NoData> Delete(int id)
         {
-            var product = _repo.GetById(id);
+            try
+            {
+                var product = _repo.GetById(id);
 
-            _repo.Delete(product);
+                _repo.Delete(product);
+                return ApiResponse<NoData>.Success(StatusCodes.Status200OK);
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<NoData>.Fail(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
         }
 
-        public ProductGetDto GetById(int productId, params string[] includeList)
+        public ApiResponse<ProductGetDto> GetById(int productId, params string[] includeList)
         {
-            var product = _repo.GetById(productId, includeList);
-
-            if (product != null)
+            try
             {
-                var dto = _mapper.Map<ProductGetDto>(product);
-                return dto;
+                var product = _repo.GetById(productId, includeList);
+
+                if (product != null)
+                {
+                    var dto = _mapper.Map<ProductGetDto>(product);
+                    return ApiResponse<ProductGetDto>.Success(StatusCodes.Status200OK, dto);
+                }
+
+                throw new NotFoundException("Aradığınız Ürün Bulunamadı.");
             }
-            return null;
+            catch (Exception ex)
+            {
+                if (ex is NotFoundException)
+                {
+                    return ApiResponse<ProductGetDto>.Fail(StatusCodes.Status404NotFound, ex.Message);
+                }
+                return ApiResponse<ProductGetDto>.Fail(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
+
         }
 
         // readonly ya buraya tanımlandığı anda setleme yapacağız ya da constructor içinde setleeyceğiz. Eğer buraya bunu koymazsak isteyen herkes her yerde _repo'yu setler ve buda bizim işimize gelmez. 
@@ -49,71 +73,155 @@ namespace Ah.Business.Implementation
         {
             //Loglama
             //Authenticaiton
-
-            //VeriTabanından getAll ile ürünleri getirecek....
-            //return _repo.GetAll(null,includeList);
-            var products = _repo.GetAll(includeList: includeList);
-            if (products.Count > 0)
+            try
             {
-                var productList = _mapper.Map<List<ProductGetDto>>(products);
-                
-                return ApiResponse<List<ProductGetDto>>.Success(StatusCodes.Status200OK, productList);
+                var products = _repo.GetAll(includeList: includeList);
+                if (products.Count > 0)
+                {
+                    var productList = _mapper.Map<List<ProductGetDto>>(products);
+                    var response = ApiResponse<List<ProductGetDto>>.Success(StatusCodes.Status200OK, productList);
+
+                    return response;
+                }
+
+                throw new NotFoundException("Aradığınız Ürün Bulunamadı.");
+            }
+            catch (Exception ex)
+            {
+                if (ex is NotFoundException)
+                {
+                    return ApiResponse<List<ProductGetDto>>.Fail(StatusCodes.Status404NotFound, "Aradığınız Ürün Bulunamadı.");
+                }
+                return ApiResponse<List<ProductGetDto>>.Fail(StatusCodes.Status500InternalServerError, ex.Message); ;
             }
 
-            return ApiResponse<List<ProductGetDto>>.Fail(StatusCodes.Status404NotFound,"Ürün Bulunamadı."); ; ;
-
             //Loglama
-            //Validation
             //Authenticaiton
         }
 
-        public List<ProductGetDto> GetProductsByPrice(decimal min, decimal max, params string[] includeList)
+        public ApiResponse<List<ProductGetDto>> GetProductsByPrice(decimal min, decimal max, params string[] includeList)
+        {
+            //Loglama
+            //Authenticaiton
+            try
+            {
+                if (min > max)
+                    throw new BadRequestException("Min Değeri Max değerinden küçük olamaz!");
+                if (min == max)
+                    throw new BadRequestException("Min değeri ile eşit olamaz");
+                if (min < 0 || max < 0)
+                    throw new BadRequestException("min veya max değerinleri negatif olamaz!");
+                // tüm validasyon parametrelerini burada işleyebilirisiniz...
+
+                var products = _repo.GetByPriceRange(min, max, includeList);
+
+                if (products != null || products.Count > 0)
+                {
+                    var returnList = _mapper.Map<List<ProductGetDto>>(products);
+                    return ApiResponse<List<ProductGetDto>>.Success(StatusCodes.Status200OK, returnList);
+                }
+                throw new BadRequestException("Ürün Yok");
+            }
+            catch (Exception ex)
+            {
+                if (ex is NotFoundException)
+                    return ApiResponse<List<ProductGetDto>>.Fail(StatusCodes.Status404NotFound, "Aradığınız Ürün Bulunamadı.");
+                if (ex is BadRequestException)
+                    return ApiResponse<List<ProductGetDto>>.Fail(StatusCodes.Status400BadRequest, ex.Message);
+
+                return ApiResponse<List<ProductGetDto>>.Fail(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+            //Loglama
+            //Authenticaiton
+        }
+
+        public ApiResponse<List<ProductGetDto>> GetProductsByStock(short min, short max, params string[] includeList)
         {
             //Loglama
             //Authenticaiton
 
-            var products = _repo.GetByPriceRange(min, max, includeList);
-            if (products.Count > 0)
+            try
             {
-                var productList = _mapper.Map<List<ProductGetDto>>(products);
-                return productList;
+                if (min > max)
+                    throw new BadRequestException("Min Değeri Max değerinden küçük olamaz!");
+
+                if (min < 0 || max < 0)
+                    throw new BadRequestException("min veya max değerinleri negatif olamaz!");
+                // tüm validasyon parametrelerini burada işleyebilirisiniz...
+
+                var products = _repo.GetProductsByStock(min, max, includeList);
+
+                if (products != null || products.Count > 0)
+                {
+                    var returnList = _mapper.Map<List<ProductGetDto>>(products);
+                    return ApiResponse<List<ProductGetDto>>.Success(StatusCodes.Status200OK, returnList);
+                }
+                throw new NotFoundException("Ürün Yok");
+            }
+            catch (Exception ex)
+            {
+                if (ex is NotFoundException)
+                    return ApiResponse<List<ProductGetDto>>.Fail(StatusCodes.Status404NotFound, "Aradığınız Ürün Bulunamadı.");
+                if (ex is BadRequestException)
+                    return ApiResponse<List<ProductGetDto>>.Fail(StatusCodes.Status400BadRequest, ex.Message);
+
+                return ApiResponse<List<ProductGetDto>>.Fail(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+            //Loglama
+            //Authenticaiton
+        }
+
+        public ApiResponse<Product> Insert(ProductPostDto dto)
+        {
+            try
+            {
+                if (dto == null)
+                    throw new BadRequestException("Kaydedecek Ürün yok");
+                if (dto.UnitPrice <= 0)
+                    throw new BadRequestException("Kaydedilecek Ürün fiyatı 0'dan büyük olmalıdır.");
+                if (dto.UnitsInStock <= 0)
+                    throw new BadRequestException("Kaydedilecek Ürün adedi 0'dan büyük olmalıdır.");
+                // validasyonlar....
+                var product = _mapper.Map<Product>(dto);
+                var insertedProduct = _repo.Insert(product);
+                return ApiResponse<Product>.Success(StatusCodes.Status200OK, insertedProduct);
             }
 
-            return null;
-            //Loglama
-            //Validation
-            //Authenticaiton
-        }
-
-        public List<ProductGetDto> GetProductsByStock(short min, short max, params string[] includeList)
-        {
-            //Loglama
-            //Authenticaiton
-
-            var products = _repo.GetProductsByStock(min, max, includeList);
-
-            if (products.Count > 0)
+            catch (Exception ex)
             {
-                var productList = _mapper.Map<List<ProductGetDto>>(products);
-                return productList;
+                if (ex is BadRequestException)
+                    return ApiResponse<Product>.Fail(StatusCodes.Status400BadRequest, ex.Message);
+
+                return ApiResponse<Product>.Fail(StatusCodes.Status500InternalServerError, ex.Message);
             }
 
-            return null;
-            //Loglama
-            //Validation
-            //Authenticaiton
         }
 
-        public Product Insert(ProductPostDto dto)
+        public ApiResponse<NoData> Update(ProductPutDto dto)
         {
-            var product = _mapper.Map<Product>(dto);
-            return _repo.Insert(product);
-        }
+            try
+            {
+                if (dto == null)
+                    throw new BadRequestException("Kaydedecek Ürün yok");
+                if (dto.UnitPrice <= 0)
+                    throw new BadRequestException("Kaydedilecek Ürün fiyatı 0'dan büyük olmalıdır.");
+                if (dto.UnitsInStock <= 0)
+                    throw new BadRequestException("Kaydedilecek Ürün adedi 0'dan büyük olmalıdır.");
+                //validasyonlar....
+                var product = _mapper.Map<Product>(dto);
+                _repo.Update(product);
+                return ApiResponse<NoData>.Success(StatusCodes.Status200OK);
+            }
 
-        public void Update(ProductPutDto dto)
-        {
-            var product = _mapper.Map<Product>(dto);
-            _repo.Update(product);
+            catch (Exception ex)
+            {
+                if (ex is BadRequestException)
+                    return ApiResponse<NoData>.Fail(StatusCodes.Status400BadRequest, ex.Message);
+
+                return ApiResponse<NoData>.Fail(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
+
         }
     }
 }

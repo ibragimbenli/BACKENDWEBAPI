@@ -10,9 +10,9 @@ namespace CommonTypesLayer.Utilities
     public class ApiResponse<T>
     {//JSON formatında dışarıya açtığımız Durum sınıfını ifade ediyor.
         public T Data { get; set; }
-        [JsonIgnore]//bu property sadece biizm kullanmamız için proj eiçinde kullanacağğımız bir propertydir. bu sonıf json'a dönüştürülürken bu prop dönüştürülmeyeektir.
+        [JsonIgnore]//bu property sadece bizim kullanmamız için proj eiçinde kullanacağğımız bir propertydir. bu sonıf json'a dönüştürülürken bu prop dönüştürülmeyeektir.
         public int StatusCode { get; set; }
-        public List<string> ErrorMessage { get; set; }
+        public List<string>? ErrorMessage { get; set; }
 
         public static ApiResponse<T> Success(int statusCode, T data)
         {

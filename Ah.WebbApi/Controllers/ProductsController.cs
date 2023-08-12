@@ -12,7 +12,7 @@ namespace Ah.WebbApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class ProductsController : BaseController
     {
         private readonly IProductBs _productBs;
 
@@ -20,33 +20,34 @@ namespace Ah.WebbApi.Controllers
         {
             _productBs = productBs;
         }
+
+
+        #region Swagger
         [Produces("application/json", "text/plain")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProductGetDto))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResponse<ProductGetDto>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ApiResponse<ProductGetDto>))]
         //[HttpGet("getbyId")]//([FromQuery])getbyId?id=5
-        [HttpGet("{id}")]//([FromRoute])..api/products/7
+        //([FromRoute])..api/products/7
+        #endregion
+        [HttpGet("{id}")]
         public IActionResult GetById([FromRoute] int id)
         {
-            var dto = _productBs.GetById(id, "Category");
+            var response = _productBs.GetById(id, "Category");
 
-            if (dto == null)
-                return NotFound(dto);
-
-            return Ok(dto);
-
+            return SendResponse(response);
         }
+
+        #region Swagger
         [Produces("application/json", "text/plain")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResponse<List<ProductGetDto>>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ApiResponse<List<ProductGetDto>>))]
+        #endregion
         [HttpGet]
         public IActionResult GetProducts()
         {
             var response = _productBs.GetProducts("Category");
 
-            if (response != null)
-                return Ok(response.Data);
-
-            return NotFound("Hiç Ürün Bulunamadı.");
+            return SendResponse(response);
 
             #region Klasik Yol
             //var products = _productBs.GetProducts("Category");
@@ -74,61 +75,65 @@ namespace Ah.WebbApi.Controllers
             //return Ok();
             //return NoContent();
         }
+
+
+        #region Swagger
+        [Produces("application/json", "text/plain")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResponse<List<ProductGetDto>>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ApiResponse<List<ProductGetDto>>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiResponse<List<ProductGetDto>>))]
+        #endregion
         [HttpGet("getbyprice")]
         public IActionResult GetByPriceRange([FromQuery] decimal min, [FromQuery] decimal max)
         {
-            var dtoList = _productBs.GetProductsByPrice(min, max, "Category");
-
-            if (dtoList != null)
-            {
-
-                return Ok(dtoList);
-            }
-            else
-                return NotFound();
+            var response = _productBs.GetProductsByPrice(min, max, "Category");
+            return SendResponse(response);
         }
+
+        #region Swagger
+        [Produces("application/json", "text/plain")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResponse<List<ProductGetDto>>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ApiResponse<List<ProductGetDto>>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiResponse<List<ProductGetDto>>))]
+        #endregion
         [HttpGet("getbystock")]
         public IActionResult GetProductsByStock(short min, short max)
         {
-            var dtoList = _productBs.GetProductsByStock(min, max, "Category");
-
-            if (dtoList != null)
-            {
-                return Ok(dtoList);
-            }
-            else return NotFound();
+            var response = _productBs.GetProductsByStock(min, max, "Category");
+            return SendResponse(response);
         }
 
+
+        #region Swagger
+        [Produces("application/json", "text/plain")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResponse<ProductPostDto>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiResponse<ProductPostDto>))]
+        #endregion
         [HttpPost]
         public IActionResult SaveNewProduct([FromBody] ProductPostDto dto)
         {
-            if (dto == null)
-                return BadRequest("Error: 'Gerekli veri gönderilmedi'");
-
-            var insertedProduct = _productBs.Insert(dto);
-
-            return CreatedAtAction(nameof(GetById), new { id = insertedProduct.ProductID }, insertedProduct);
+            var response = _productBs.Insert(dto);
+            return CreatedAtAction(nameof(GetById), new { id = response.Data.ProductID }, response.Data);
         }
 
+        #region Swagger
         [Produces("application/json", "text/plain")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        #endregion
         [HttpPut]
         public IActionResult UpdateProduct([FromBody] ProductPutDto dto)
         {
-            if (dto == null)
-                return BadRequest("Error: 'Gerekli veri gönderilmedi'");
-
-            _productBs.Update(dto);
-            return Ok();
+            var response = _productBs.Update(dto);
+            return SendResponse(response);
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteProduct([FromQuery] int id)
         {
-            _productBs.Delete(id);
+            var response = _productBs.Delete(id);
 
-            return Ok();
+            return SendResponse(response);
         }
     }
 }

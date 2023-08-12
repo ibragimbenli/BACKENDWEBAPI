@@ -1,0 +1,70 @@
+SOLID -- 
+S — Single-responsibility principle
+ÖZET: Bir sýnýf (nesne) yalnýzca bir amaç uðruna deðiþtirilebilir, o da o sýnýfa yüklenen sorumluluktur, yani bir sýnýfýn(fonksiyona da indirgenebilir) yapmasý gereken yalnýzca bir iþi olmasý gerekir.
+
+O — Open-closed principle
+ÖZET: Bir sýnýf ya da fonksiyon halihazýrda var olan özellikleri korumalý ve deðiþikliðe izin vermemelidir. Yani davranýþýný deðiþtirmiyor olmalý ve yeni özellikler kazanabiliyor olmalýdýr.
+
+L — Liskov substitution principle
+ÖZET: Kodlarýmýzda herhangi bir deðiþiklik yapmaya gerek duymadan alt sýnýflarý, türedikleri(üst) sýnýflarýn yerine kullanabilmeliyiz.
+
+I — Interface segregation principle
+ÖZET: Sorumluluklarýn hepsini tek bir arayüze toplamak yerine daha özelleþtirilmiþ birden fazla arayüz oluþturmalýyýz.
+
+D — Dependency Inversion Principle
+ÖZET: Sýnýflar arasý baðýmlýlýklar olabildiðince az olmalýdýr özellikle üst seviye sýnýflar alt seviye sýnýflara baðýmlý olmamalýdýr.
+
+Dont Repeat YourSelf -Kendini Tekrar Etme
+
+--Extantions Methods --
+
+Exceptions Hata Kotrolü
+
+try (Hata Yoksa çalýþýr) -hata var ise throw fýrlatýr-
+- catch 
+throw fýrlatýldýðnda çalýþan scobe
+- catch (Exeption ex)
+throw fýrlatýldýðnda çalýþan scobe
+Birden fazla catch kullancak olursanýz sýralama aþaðýdaki þeilde olmalý.
+        try
+            {
+                var product = _repo.GetById(productId, includeList);
+
+                if (product != null)
+                {
+                    var dto = _mapper.Map<ProductGetDto>(product);
+                    return ApiResponse<ProductGetDto>.Success(StatusCodes.Status200OK,dto);
+                }
+            }
+            catch (FormatException ex)
+            {
+                return null;
+            }
+            catch (OverflowException ex)
+            {
+
+                return null;
+            }
+            catch (Exception ex) //bu catch her zaman en sonda olmalý diðerli farketmez..
+            {
+
+                return null;
+            }
+
+JSON JavaScript Object Notation (JavaScript Nesne Gösterimi) kýsaltmasýdýr. 
+"Influencers" :   [ 
+{
+ "name" : "Jaxon", 
+ "age" : 42, 
+ "Works At" : "Tech News"
+}
+
+{
+ "name" : "Miller", 
+ "age" : 35
+ "Works At" : "IT Day"
+}
+] 
+
+
+Middleware yazarak
