@@ -9,6 +9,6 @@ namespace Ah.Business.Interface
 {
     public interface IEmployeeBs
     {
-        List<Employee> GetEmployees();
+        Task<List<Employee>> GetEmployees();
     }
 }

@@ -12,14 +12,14 @@ namespace CommonTypesLayer.DataAccess.Implementaitons.EF
         where TContext : DbContext, new()
     {
         //CRUD işlemlerinin nasıl gerçekleşeceğini yazdığım sınıf
-        public void Delete(TEntity entitiy)
+        public async Task DeleteAsync(TEntity entitiy)
         {
-            using var ctx = new TContext();
+            using var ctx =  new TContext();
             ctx.Set<TEntity>().Remove(entitiy);
-            ctx.SaveChanges();
+            await ctx.SaveChangesAsync();
         }
 
-        public TEntity Get(Expression<Func<TEntity, bool>> predicate, params string[] includeList)
+        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, params string[] includeList)
         {
             using (var ctx = new TContext())
             {
@@ -32,11 +32,11 @@ namespace CommonTypesLayer.DataAccess.Implementaitons.EF
                     }
                 }
 
-                return dbSet.SingleOrDefault(predicate);
+                return await dbSet.SingleOrDefaultAsync(predicate);
             }
         }
 
-        public List<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate = null, params string[] includeList)
+        public async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, params string[] includeList)
         {
             //delagate generic
             //func
@@ -54,28 +54,28 @@ namespace CommonTypesLayer.DataAccess.Implementaitons.EF
                     }
                 }
                 if (predicate == null)
-                    return dbSet.ToList();
+                    return await dbSet.ToListAsync();
                 else
-                    return dbSet.Where(predicate).ToList();
+                    return await dbSet.Where(predicate).ToListAsync();
             }
 
         }
 
-        public TEntity Insert(TEntity entitiy)
+        public async Task<TEntity> InsertAsync(TEntity entity)
         {
             using var ctx = new TContext();
 
-            var entityT = ctx.Set<TEntity>().Add(entitiy);
-            
-            ctx.SaveChanges();
-            return entityT.Entity;
+            var entityT =  ctx.Set<TEntity>().AddAsync(entity);
+
+            await ctx.SaveChangesAsync();
+            return entityT.Result.Entity;
         }
 
-        public void Update(TEntity entitiy)
+        public async Task UpdateAsync(TEntity entitiy)
         {
             using var ctx = new TContext();
             ctx.Set<TEntity>().Update(entitiy);
-            ctx.SaveChanges();
+            await ctx.SaveChangesAsync();
         }
     }
 }

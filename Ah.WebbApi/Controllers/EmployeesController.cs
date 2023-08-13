@@ -16,10 +16,10 @@ namespace Ah.WebbApi.Controllers
                 _employeeBs = employeeBs;
         }
         [HttpGet]
-        public IActionResult GetAllEmployees()
+        public async Task<IActionResult> GetAllEmployees()
         {
             //requesti clienttan aldıktan sonra kendi yapacaklarını burada yapacak sonra businessle haberleşecek...
-            var employeeList = _employeeBs.GetEmployees();
+            var employeeList = await _employeeBs.GetEmployees();
             if (employeeList.Count > 0)
                 return Ok(employeeList);
             else return NotFound();

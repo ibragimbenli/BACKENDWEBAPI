@@ -12,12 +12,13 @@ namespace Ah.DataAccess.EF.Repositoryies
 {
     public class EmployeeRepository : BaseRepository<Employee, NorthwndContext>, IEmployeeRepository
     {
-        public List<Employee> GetByAgeRange(int min, int max)
+
+        Task<List<Employee>> IEmployeeRepository.GetByAgeRange(int min, int max)
         {
             throw new NotImplementedException();
         }
 
-        public List<Employee> GetByCity(string city)
+        Task<List<Employee>> IEmployeeRepository.GetByCity(string city)
         {
             throw new NotImplementedException();
         }

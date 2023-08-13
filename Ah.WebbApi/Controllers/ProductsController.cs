@@ -30,9 +30,9 @@ namespace Ah.WebbApi.Controllers
         //([FromRoute])..api/products/7
         #endregion
         [HttpGet("{id}")]
-        public IActionResult GetById([FromRoute] int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var response = _productBs.GetById(id, "Category");
+            var response = await _productBs.GetByIdAsync(id, "Category");
 
             return SendResponse(response);
         }
@@ -43,9 +43,9 @@ namespace Ah.WebbApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ApiResponse<List<ProductGetDto>>))]
         #endregion
         [HttpGet]
-        public IActionResult GetProducts()
+        public async Task<IActionResult> GetProducts()
         {
-            var response = _productBs.GetProducts("Category");
+            var response = await _productBs.GetProductsAsync("Category");
 
             return SendResponse(response);
 
@@ -84,9 +84,9 @@ namespace Ah.WebbApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiResponse<List<ProductGetDto>>))]
         #endregion
         [HttpGet("getbyprice")]
-        public IActionResult GetByPriceRange([FromQuery] decimal min, [FromQuery] decimal max)
+        public async Task<IActionResult> GetByPriceRangeAsync([FromQuery] decimal min, [FromQuery] decimal max)
         {
-            var response = _productBs.GetProductsByPrice(min, max, "Category");
+            var response = await _productBs.GetProductsByPriceAsync(min, max, "Category");
             return SendResponse(response);
         }
 
@@ -97,9 +97,9 @@ namespace Ah.WebbApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiResponse<List<ProductGetDto>>))]
         #endregion
         [HttpGet("getbystock")]
-        public IActionResult GetProductsByStock(short min, short max)
+        public async Task<IActionResult> GetProductsByStockAsync(short min, short max)
         {
-            var response = _productBs.GetProductsByStock(min, max, "Category");
+            var response = await _productBs.GetProductsByStockAsync(min, max, "Category");
             return SendResponse(response);
         }
 
@@ -110,9 +110,9 @@ namespace Ah.WebbApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiResponse<ProductPostDto>))]
         #endregion
         [HttpPost]
-        public IActionResult SaveNewProduct([FromBody] ProductPostDto dto)
+        public async Task<IActionResult> SaveNewProductAsync([FromBody] ProductPostDto dto)
         {
-            var response = _productBs.Insert(dto);
+            var response = await _productBs.InsertAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = response.Data.ProductID }, response.Data);
         }
 
@@ -122,16 +122,16 @@ namespace Ah.WebbApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         #endregion
         [HttpPut]
-        public IActionResult UpdateProduct([FromBody] ProductPutDto dto)
+        public async Task<IActionResult> UpdateProductAsync([FromBody] ProductPutDto dto)
         {
-            var response = _productBs.Update(dto);
+            var response = await _productBs.UpdateAsync(dto);
             return SendResponse(response);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteProduct([FromQuery] int id)
+        public async Task<IActionResult> DeleteProductAsync([FromQuery] int id)
         {
-            var response = _productBs.Delete(id);
+            var response = await _productBs.DeleteAsync(id);
 
             return SendResponse(response);
         }

@@ -26,19 +26,19 @@ namespace Ah.Business.Implementation
             _mapper = mapper;
         }
 
-        public ApiResponse<NoData> Delete(int id)
+        public async Task<ApiResponse<NoData>> DeleteAsync(int id)
         {
 
-            var product = _repo.GetById(id);
+            var product = await _repo.GetByIdAsync(id);
 
-            _repo.Delete(product);
+            await _repo.DeleteAsync(product);
             return ApiResponse<NoData>.Success(StatusCodes.Status200OK);
         }
 
 
-        public ApiResponse<ProductGetDto> GetById(int productId, params string[] includeList)
+        public async Task<ApiResponse<ProductGetDto>> GetByIdAsync(int productId, params string[] includeList)
         {
-            var product = _repo.GetById(productId, includeList);
+            var product = await _repo.GetByIdAsync(productId, includeList);
 
             if (product != null)
             {
@@ -51,12 +51,12 @@ namespace Ah.Business.Implementation
         }
 
         // readonly ya buraya tanımlandığı anda setleme yapacağız ya da constructor içinde setleeyceğiz. Eğer buraya bunu koymazsak isteyen herkes her yerde _repo'yu setler ve buda bizim işimize gelmez. 
-        public ApiResponse<List<ProductGetDto>> GetProducts(params string[] includeList)
+        public async Task<ApiResponse<List<ProductGetDto>>> GetProductsAsync(params string[] includeList)
         {
             //Loglama
             //Authenticaiton
 
-            var products = _repo.GetAll(includeList: includeList);
+            var products = await _repo.GetAllAsync(includeList: includeList);
             if (products.Count > 0)
             {
                 var productList = _mapper.Map<List<ProductGetDto>>(products);
@@ -71,7 +71,7 @@ namespace Ah.Business.Implementation
             //Authenticaiton
         }
 
-        public ApiResponse<List<ProductGetDto>> GetProductsByPrice(decimal min, decimal max, params string[] includeList)
+        public async Task<ApiResponse<List<ProductGetDto>>> GetProductsByPriceAsync(decimal min, decimal max, params string[] includeList)
         {
             //Loglama
             //Authenticaiton
@@ -83,7 +83,7 @@ namespace Ah.Business.Implementation
                 throw new BadRequestException("min veya max değerinleri negatif olamaz!");
             // tüm validasyon parametrelerini burada işleyebilirisiniz...
 
-            var products = _repo.GetByPriceRange(min, max, includeList);
+            var products = await _repo.GetByPriceRangeAsync(min, max, includeList);
 
             if (products != null || products.Count > 0)
             {
@@ -95,7 +95,7 @@ namespace Ah.Business.Implementation
             //Authenticaiton
         }
 
-        public ApiResponse<List<ProductGetDto>> GetProductsByStock(short min, short max, params string[] includeList)
+        public async Task<ApiResponse<List<ProductGetDto>>> GetProductsByStockAsync(short min, short max, params string[] includeList)
         {
             //Loglama
             //Authenticaiton
@@ -108,7 +108,7 @@ namespace Ah.Business.Implementation
                 throw new BadRequestException("min veya max değerinleri negatif olamaz!");
             // tüm validasyon parametrelerini burada işleyebilirisiniz...
 
-            var products = _repo.GetProductsByStock(min, max, includeList);
+            var products = await _repo.GetProductsByStockAsync(min, max, includeList);
 
             if (products != null || products.Count > 0)
             {
@@ -121,7 +121,7 @@ namespace Ah.Business.Implementation
             //Authenticaiton
         }
 
-        public ApiResponse<Product> Insert(ProductPostDto dto)
+        public async Task<ApiResponse<Product>> InsertAsync(ProductPostDto dto)
         {
             if (dto == null)
                 throw new BadRequestException("Kaydedecek Ürün yok");
@@ -131,11 +131,11 @@ namespace Ah.Business.Implementation
                 throw new BadRequestException("Kaydedilecek Ürün adedi 0'dan büyük olmalıdır.");
             // validasyonlar....
             var product = _mapper.Map<Product>(dto);
-            var insertedProduct = _repo.Insert(product);
+            var insertedProduct = await _repo.InsertAsync(product);
             return ApiResponse<Product>.Success(StatusCodes.Status200OK, insertedProduct);
         }
 
-        public ApiResponse<NoData> Update(ProductPutDto dto)
+        public async Task<ApiResponse<NoData>> UpdateAsync(ProductPutDto dto)
         {
 
             if (dto == null)
@@ -146,7 +146,7 @@ namespace Ah.Business.Implementation
                 throw new BadRequestException("Kaydedilecek Ürün adedi 0'dan büyük olmalıdır.");
             //validasyonlar....
             var product = _mapper.Map<Product>(dto);
-            _repo.Update(product);
+            await _repo.UpdateAsync(product);
             return ApiResponse<NoData>.Success(StatusCodes.Status200OK);
 
         }

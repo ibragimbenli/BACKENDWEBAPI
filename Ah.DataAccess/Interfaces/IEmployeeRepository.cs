@@ -10,11 +10,9 @@ namespace Ah.DataAccess.Interfaces
 {
     public interface IEmployeeRepository : IBaseRepository<Employee>
     {
-        
-
         //GetByCity(string city)
-        List<Employee> GetByCity(string city);
+        Task<List<Employee>> GetByCity(string city);
         //GetByAgeRange(int age)
-        List<Employee> GetByAgeRange(int min, int max);
+        Task<List<Employee>> GetByAgeRange(int min, int max);
     }
 }

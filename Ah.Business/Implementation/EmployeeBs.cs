@@ -16,9 +16,9 @@ namespace Ah.Business.Implementation
         {
             _repo = repo;
         }
-        public List<Employee> GetEmployees()
+        public async Task<List<Employee>> GetEmployees()
         {
-            var employees = _repo.GetAll();
+            var employees = await _repo.GetAllAsync();
             return employees;
         }
     }

@@ -7,8 +7,8 @@ namespace Ah.DataAccess.Interfaces
     {
         //Interface ile buraya CRUD işlemlerini getirdim...
         //CRUD işlemlerinin haricinde kullandığım metodlar aşağıda
-        List<Product> GetByPriceRange(decimal min, decimal max, params string[] includeList);
-        List<Product> GetProductsByStock(short min, short max, params string[] includeList);
-        Product GetById(int productId, params string[] includeList);
+        Task<List<Product>> GetByPriceRangeAsync(decimal min, decimal max, params string[] includeList);
+        Task<List<Product>> GetProductsByStockAsync(short min, short max, params string[] includeList);
+        Task<Product> GetByIdAsync(int productId, params string[] includeList);
     }
 }
