@@ -1,5 +1,6 @@
 using Ah.Business;
 using Ah.WebbApi;
+using Ah.WebbApi.Middlewares;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,8 @@ app.UseSwaggerUI();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCustomExeption();
 
 app.Run();//bu metod return görevindedir.
 public class MyTransparentJsonNamingPolicy : JsonNamingPolicy
