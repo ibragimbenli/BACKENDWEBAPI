@@ -16,7 +16,7 @@ D — Dependency Inversion Principle
 
 Dont Repeat YourSelf -Kendini Tekrar Etme
 
---Extantions Methods --
+--Extantions Methods --(Uzantýlar)
 
 Exceptions Hata Kotrolü
 
@@ -47,7 +47,6 @@ Birden fazla catch kullancak olursanýz sýralama aþaðýdaki þeilde olmalý.
             }
             catch (Exception ex) //bu catch her zaman en sonda olmalý diðerli farketmez..
             {
-
                 return null;
             }
 
@@ -67,3 +66,16 @@ JSON JavaScript Object Notation (JavaScript Nesne Gösterimi) kýsaltmasýdýr.
 ] 
 
 Middleware - 
+.net FrameWork varken .net bize kullanabileceðimiz tüm componentleri hazýr halde yükleyerek getiriyordu. Fakat .Net Core ile birlikte getirilen bu MiddleWare kavramý bize iþimize yarayan veya biizm isteðimize uygun yada tercihimize sunulan bir aracý yazýlýmdýr.
+
+// Configure the HTTP request pipeline. Uygulama sorgu - response boru hattý
+Application Life Cyrcle - Uygulama yaþam döngüsü...
+
+Senkron Programlama - Sýralý þekilde çalýþýr
+
+Asekron Programlama - Sýrasýz þekilde çalýþýr
+task - async - await
+
+thread - Dallanma þeklinde çalýþýr. yani birden çok iiþlemi ayný anda yapabilir.
+
+Ajax - Bölgesel anlamda programlama. JS temelli progamlamalarda çok sýk kullanýlýr.
